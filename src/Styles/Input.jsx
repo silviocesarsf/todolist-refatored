@@ -11,6 +11,7 @@ export const Input = styled.input`
 	color: ${(props) => darken(0.8, props.theme.colors.text)};
 
 	@media (max-width: 768px) {
+		font-size: 1.6em;
 		height: 15vh;
 	}
 `;

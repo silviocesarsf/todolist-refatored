@@ -9,6 +9,7 @@ export const ListTasks = styled.div`
 	color: black;
 	font-size: 2em;
 	overflow-y: auto;
+	transition: 1s;
 
 	@media (max-width: 300px) {
 		padding: 2rem 3rem;

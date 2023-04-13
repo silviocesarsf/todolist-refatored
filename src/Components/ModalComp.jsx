@@ -7,6 +7,7 @@ import { Input } from "../Styles/Input";
 import { Title } from "../Styles/Title";
 import { Container } from "../Styles/Container";
 import { Button } from "../Styles/Button";
+import { motion } from "framer-motion";
 
 const ModalComp = ({
 	editingTask,
@@ -19,7 +20,15 @@ const ModalComp = ({
 
 	return (
 		<>
-			<ModalBg>
+			<ModalBg
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{
+					type: "spring",
+					stiffness: 260,
+					damping: 20,
+				}}
+			>
 				<Modal style={boxShadowStyle}>
 					<Container
 						className="modal"

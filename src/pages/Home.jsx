@@ -12,10 +12,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Paragraph } from "../Styles/Paragraph";
 import ModalComp from "../Components/ModalComp";
+import { motion } from "framer-motion";
 
 const Home = () => {
-	const { boxShadowStyle, isMobile, menuOption, setMenuOption } =
-		useContext(ContextProvider);
+	const { boxShadowStyle, isMobile } = useContext(ContextProvider);
 	const [idTask, setIdTask] = useState(1);
 	const [textTask, setTextTask] = useState("");
 	const [list, setList] = useState([]);
@@ -44,7 +44,6 @@ const Home = () => {
 			setList([...list, taskObj]);
 			setIdTask(idTask + 1);
 			setTextTask("");
-			setMenuOption(false);
 		}
 	};
 
@@ -55,7 +54,6 @@ const Home = () => {
 	const handleDeleteTask = (id) => {
 		const updatedList = list.filter((task) => task.id !== id);
 		setList(updatedList);
-		setMenuOption(false);
 	};
 
 	const handleModal = (id) => {
@@ -86,7 +84,12 @@ const Home = () => {
 	};
 
 	return (
-		<Section className="home" display="flex" align="center" justify="center">
+		<Section
+			className="home"
+			display="flex"
+			align="center"
+			justify="center"
+		>
 			<Container
 				dir="column"
 				justify="space-between"
@@ -108,47 +111,99 @@ const Home = () => {
 				<ToastContainer />
 				<Title>Escreva alguma tarefa !</Title>
 				<Container width="100%" className="inputs">
-					<Input
-						onChange={handleTaskInput}
-						style={boxShadowStyle}
-						type="text"
-						value={textTask}
-						autoFocus
-					/>
-					<GrAddCircle
-						onClick={createTask}
-						className="add-icon"
-					/>
-				</Container>
-				<ListTasks style={boxShadowStyle}>
-					<Container
-						textAlign="center"
-						dir="column"
-						gap="2rem"
+					<motion.div
+						style={{ width: "100%" }}
+						initial={{ scaleX: 0, originX: 0 }}
+						animate={{ scaleX: 1, originX: 0 }}
+						transition={{
+							type: "spring",
+							stiffness: 260,
+							damping: 20,
+						}}
 					>
-						{list.length ? (
-							list.map((todo) => {
-								return (
-									<TaskComp
-										key={todo.id}
-										todo={todo}
-										onDelete={handleDeleteTask}
-										editing={editing}
-										setEditing={setEditing}
-										handleModal={handleModal}
-									/>
-								);
-							})
-						) : (
-							<>
-								<Paragraph>
-									Não há tarefas adicionadas
-								</Paragraph>
-								<BiSad />
-							</>
-						)}
-					</Container>
-				</ListTasks>
+						<Input
+							onChange={handleTaskInput}
+							style={boxShadowStyle}
+							type="text"
+							value={textTask}
+							autoFocus
+						/>
+						<GrAddCircle
+							onClick={createTask}
+							className="add-icon"
+						/>
+					</motion.div>
+				</Container>
+				<motion.div
+					initial={{ scaleY: 0, opacity: 0, originY: 0 }}
+					animate={{ scaleY: 1, opacity: 1, originY: 0 }}
+					transition={{
+						type: "spring",
+						stiffness: 260,
+						damping: 20,
+						delay: 0.5,
+					}}
+					style={{ width: "100%" }}
+				>
+					<ListTasks style={boxShadowStyle}>
+						<Container
+							textAlign="center"
+							dir="column"
+							gap="2rem"
+						>
+							{list.length ? (
+								list.map((todo) => {
+									return (
+										<motion.div
+											key={todo.id}
+											initial={{
+												x: -100,
+												opacity: 0,
+												originY: 0,
+											}}
+											animate={{
+												x: 0,
+												opacity: 1,
+												originY: 0,
+											}}
+											transition={{
+												type: "spring",
+												stiffness: 260,
+												damping: 20,
+											}}
+											exit={{
+												opacity: 0,
+												x: -100,
+											}}
+											style={{ width: "100%" }}
+										>
+											<TaskComp
+												todo={todo}
+												onDelete={
+													handleDeleteTask
+												}
+												editing={editing}
+												setEditing={
+													setEditing
+												}
+												handleModal={
+													handleModal
+												}
+											/>
+										</motion.div>
+									);
+								})
+							) : (
+								<>
+									<Paragraph>
+										Não há tarefas adicionadas
+									</Paragraph>
+									<BiSad />
+								</>
+							)}
+						</Container>
+					</ListTasks>
+				</motion.div>
 			</Container>
 		</Section>
 	);

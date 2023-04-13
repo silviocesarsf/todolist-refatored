@@ -8,7 +8,7 @@ export const Section = styled.section`
 	justify-content: ${(props) =>
 		props.justify ? props.justify : ""};
 	flex-direction: ${(props) => props.dir};
-    
+
 	&.home {
 		position: relative;
 		z-index: 1;

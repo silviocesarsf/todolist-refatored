@@ -12,20 +12,24 @@ export const Container = styled.div`
 	gap: ${(props) => props.gap};
 	text-align: ${(props) => props.textAlign};
 
-	.inputs input {
+	.inputs div {
 		position: relative;
 	}
 
 	.inputs .add-icon {
 		position: absolute;
-		right: 18%;
+		right: 5%;
+		top: 50%;
+		transform: translate(-50%, -50%);
 		font-size: 2em;
 	}
 
 	.task {
 		position: relative;
+		flex-wrap: wrap;
+		text-align: center;
 	}
-	
+
 	.add-icon,
 	.sub-icon,
 	.edit-icon {
@@ -38,18 +42,10 @@ export const Container = styled.div`
 		justify-content: space-around;
 	}
 
-	.options-more {
-		position: absolute;
-		right: -30%;
-		top: -30%;
-		padding: 10px;
-		border-radius: 10px;
-		background: white;
-		width: 120px;
-		font-size: 0.6em;
-	}
-
-	.icon-more {
-		position: absolute;
+	@media (max-width: 360px) {
+		.sub-icon,
+		.edit-icon {
+			font-size: 0.8em;
+		}
 	}
 `;

@@ -8,6 +8,7 @@ export const Modal = styled.div`
 	transform: translate(-50%, -50%);
 	height: 450px;
 	width: 90vw;
+	z-index: 5;
 	background-color: white;
 	border-radius: 10px;
 `;
